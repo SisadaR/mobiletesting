@@ -23,24 +23,76 @@ void main() {
           'given inputted pin is empty when digit is pressed then inputted pin should be added',
           () {
         // Arrange
-
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
         // Act
+        loginViewModel.onDigitPressed(1, MockBuildContext());
 
         // Assert
+        expect(loginViewModel.inputtedPin, '1231');
       }, tags: 'unit');
 
       test(
           'given inputted pin is 6 digits when digit is pressed then inputted pin should not be added',
-          () {},
-          tags: 'unit');
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        // Act
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+
+        // Assert
+        expect(loginViewModel.inputtedPin, '123333');
+      }, tags: 'unit');
       group('FE pin validation', () {});
       group('handle network call', () {});
     });
     group('onDeleteButtonPressed', () {
       test(
           'given inputted pin is not empty when delete button is click then last digit from inputtedPin will be removed',
-          () {},
-          tags: 'unit');
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        loginViewModel.onDigitPressed(2, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        loginViewModel.onDigitPressed(3, MockBuildContext());
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+
+        // Assert
+        expect(loginViewModel.inputtedPin, '12333');
+      }, tags: 'unit');
+
+      test(
+          'given inputted pin is not empty when delete button is click then last digit from inputtedPin will be removed',
+          () {
+        // Arrange
+        loginViewModel.onDigitPressed(1, MockBuildContext());
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+
+        // Assert
+        expect(loginViewModel.inputtedPin, '');
+      }, tags: 'unit');
+
+      test(
+          'given inputted pin is not empty when delete button is click then last digit from inputtedPin will be removed',
+          () {
+        // Arrange
+
+        // Act
+        loginViewModel.onDeleteButtonPressed();
+
+        // Assert
+        expect(loginViewModel.inputtedPin, '');
+      }, tags: 'unit');
     });
 
     group('navigation', () {});
