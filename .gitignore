@@ -42,3 +42,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /test/ui_test/failures/
+
+# FVM Version Cache
+.fvm/
